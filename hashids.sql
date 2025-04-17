@@ -9,10 +9,14 @@ declare
   current_number bigint := number;
   alphabet_arr varchar [] := regexp_split_to_array( alphabet, '' );
   alphabet_length integer := length( alphabet );
+  done boolean := false;
 begin
-  while current_number > 0 loop
+  while not done loop
     id := alphabet_arr [( current_number % alphabet_length ) + 1] || id;
     current_number := current_number / alphabet_length;
+    if current_number <= 0 then
+      done := true;
+    end if;
   end loop;
 
   return id;
